@@ -1,31 +1,28 @@
 package main
 
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	if head.Next == nil {
 		return nil
 	}
 
-	current := head
-	prev := current
+	start := &ListNode{Next: head}
+	current := &start
 
-	i := 0
-	for current.Next != nil {
-		if i >= n {
-			prev = prev.Next
-		}
-
-		i++
-
+	for n != 0 {
+		n--
 		current = current.Next
 	}
 
-	if i == n-1 {
-		return head.Next
-	}
+	prev := current
 
 	if prev != nil {
 		prev.Next = prev.Next.Next
 	}
 
-	return head
+	return start.Next
 }
